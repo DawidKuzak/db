@@ -30,5 +30,4 @@ public class SalaryId implements Serializable {
 		SalaryId other = (SalaryId) obj;
 		return Objects.equals(employee, other.employee) && Objects.equals(from_date, other.from_date);
 	}
-	
 }

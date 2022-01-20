@@ -11,29 +11,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dept_manager")
-@IdClass(DeptManagerId.class)
-public class DeptManager {
+@Table(name = "works_in")
+@IdClass(WorksInId.class)
+public class WorksIn {
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "emp_no", nullable = false)
-	private Employee employee;
+    @JoinColumn(name = "emp_no", nullable = false)
+    private Employee employee;
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "dept_no", nullable = false)
-	private Department department;
-
+    @JoinColumn(name = "dept_no", nullable = false)
+    private Department department;
+	
 	private Date to_date;
-
+	
 	@Id
 	private Date from_date;
-
-	public DeptManager() {
+	
+	public WorksIn() {
 
 	}
 
-	public DeptManager(Employee employee, Department department, Date to_date, Date from_date) {
+	public WorksIn(Employee employee, Department department, Date to_date, Date from_date) {
 		super();
 		this.employee = employee;
 		this.department = department;
