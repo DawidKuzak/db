@@ -12,7 +12,7 @@ public class Title {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "emp_no", nullable = false)
-	private Employee employee;
+	private Employee emp_no;
 
 	@Id
 	@Size(max = 50)
@@ -27,13 +27,13 @@ public class Title {
 
 	public Title(Employee employee, @Size(max = 50) String title, Date from_date) {
 		super();
-		this.employee = employee;
+		this.emp_no = employee;
 		this.title = title;
 		this.from_date = from_date;
 	}
 
 	public Employee getEmployee() {
-		return employee;
+		return emp_no;
 	}
 
 	public String getTitle() {
@@ -46,7 +46,7 @@ public class Title {
 
 	@Override
 	public String toString() {
-		return "[" + employee.getEmp_no() + " " + title + " " + from_date.toString() + "]";
+		return "[" + emp_no.getEmp_no() + " " + title + " " + from_date.toString() + "]";
 	}
 
 }

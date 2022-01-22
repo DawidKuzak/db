@@ -1,5 +1,6 @@
 package com.smart.db.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee implements Serializable{
 	@Id
 	@Size(max = 11)
 	private Integer emp_no;

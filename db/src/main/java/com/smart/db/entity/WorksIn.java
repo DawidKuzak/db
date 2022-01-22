@@ -17,12 +17,12 @@ public class WorksIn {
 	@Id
 	@ManyToOne
     @JoinColumn(name = "emp_no", nullable = false)
-    private Employee employee;
+    private Employee emp_no;
 
 	@Id
 	@ManyToOne
     @JoinColumn(name = "dept_no", nullable = false)
-    private Department department;
+    private Department dept_no;
 	
 	private Date to_date;
 	
@@ -35,18 +35,18 @@ public class WorksIn {
 
 	public WorksIn(Employee employee, Department department, Date to_date, Date from_date) {
 		super();
-		this.employee = employee;
-		this.department = department;
+		this.emp_no = employee;
+		this.dept_no = department;
 		this.to_date = to_date;
 		this.from_date = from_date;
 	}
 
 	public Employee getEmployee() {
-		return employee;
+		return emp_no;
 	}
 
 	public Department getDepartment() {
-		return department;
+		return dept_no;
 	}
 
 	public Date getTo_date() {
@@ -59,7 +59,7 @@ public class WorksIn {
 
 	@Override
 	public String toString() {
-		return "[" + department.getId() + " " + employee.getEmp_no() + " " + from_date.toString() + " "
+		return "[" + dept_no.getId() + " " + emp_no.getEmp_no() + " " + from_date.toString() + " "
 				+ to_date.toString() + "]";
 	}
 }
