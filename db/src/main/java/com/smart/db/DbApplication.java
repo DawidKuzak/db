@@ -1,10 +1,7 @@
 package com.smart.db;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.Reader;
-import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -78,7 +75,8 @@ public class DbApplication implements CommandLineRunner {
 				System.out.println("1. Import");
 				System.out.println("2. Export");
 				System.out.println("3. Query");
-				System.out.println("4. Exit");
+				System.out.println("4. Calculate salary net");
+				System.out.println("5. Exit");
 
 				System.out.print("Enter choice: ");
 				n = inp.nextInt();
@@ -214,7 +212,7 @@ public class DbApplication implements CommandLineRunner {
 					try {
 						System.out.print("Query: ");
 						String query = inp.nextLine();
-
+						int count=0;
 						Statement stmt = conn.createStatement();
 						if (query.toLowerCase().contains("update") || query.toLowerCase().contains("delete")
 								|| query.toLowerCase().contains("insert")) {
@@ -227,26 +225,63 @@ public class DbApplication implements CommandLineRunner {
 								System.out.print(meta.getColumnName(i) + ", ");
 							}
 							System.out.println();
+							
 							while (set.next()) {
 								String row = "";
 								for (int i = 1; i <= columnCount; i++) {
 									row += set.getObject(i) + ", ";
+									count +=1;
 								}
 								System.out.println(row);
 
 							}
+							
 						}
-						System.out.println("Query executed..");
+						if(count==0) {
+							System.out.println("Query executed, but none results");
+						}else {
+							System.out.println("Query executed.");
+						}
 					} catch (Exception ex) {
 						System.out.println("SQL ERROR: " + ex.getMessage());
 					}
 					break;
 				case 4:
+					try {
+						System.out.println("Who's salary you want to know how looks in net? Put his name:");
+						String name = inp.nextLine();
+						System.out.println("And surname please:");
+						String surname = inp.nextLine();
+						String query = "Select 0.76*salary AS " + '"' + "net_salary" + '"' +  "FROM employees, salaries WHERE salaries.emp_no=employees.emp_no AND employees.first_name=" + '"'+ name + '"' + " AND employees.last_name=" + '"' + surname + '"';
+						Statement stmt = conn.createStatement();
+						ResultSet set = stmt.executeQuery(query);
+						ResultSetMetaData meta = set.getMetaData();
+						int columnCount = meta.getColumnCount();
+						int count=0;
+						if (set.next()) {
+							String row = "";
+							for (int i = 1; i <= columnCount; i++) {
+								System.out.println("His net salary should be around:");
+								System.out.println(set.getObject(i));
+								row += set.getObject(i);
+								count+=1;
+							}
+							if(count>1) {
+								System.out.println(row);
+							}
+						}else {
+							System.out.println("This person doesn't get payment, because's not alive!");
+						}
+					}catch (Exception ex) {
+						System.out.println("SQL ERROR: " + ex.getMessage());
+					}
+					break;
+				case 5:
 					run = false;
 					break;
 
 				default:
-					System.out.println("Invalid choice!!!");
+					System.out.println("Invalid choice!");
 					break;
 				}
 			}
